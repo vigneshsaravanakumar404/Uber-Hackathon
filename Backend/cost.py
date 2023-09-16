@@ -1,1 +1,0 @@
-# Money & Energy Cost Calculations

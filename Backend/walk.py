@@ -74,7 +74,3 @@ def walk_cost(start, end):
     walk_cost = walk_time * 0
     
     return walk_cost
-
-
-
-print(compute_walk_route((0, 0), (99, 99)))

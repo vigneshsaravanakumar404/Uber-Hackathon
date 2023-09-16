@@ -1,3 +1,6 @@
+#TODO: Train Wait Time
+#TODO: Train Cost
+
 class Station:
 
     def __init__(self, x, y):
@@ -66,7 +69,7 @@ class Station:
         else:
             return -1
 
-    
+
 stations = []
 for i in range(10, 100, 10):  
     for j in range(10, 100, 10):  

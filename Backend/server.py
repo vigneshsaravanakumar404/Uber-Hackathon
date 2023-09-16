@@ -52,36 +52,33 @@ def main_api():
     # Variables
     hour = round(time[0] + time[1]/60)
 
-    # Full Walk
+    # Walk
     walk_time = compute_walk_time(start, end)
     walk_route = compute_walk_route(start, end)
     walk_cost = 0
     walk_wait_time = 0
     walk_env_tax = 0
 
-    # Full Uber
+    # Uber
     uber_time = time_to_uber(start, end, hour)
     uber_route = generate_route(start, end, hour)
     uber_cost = car_cost(start, end, hour)
     uber_wait_time = time_to_uber()
     uber_env_tax = environment_tax(start, end, hour)
 
-    # Train + Walk
-    train_walk_env_tax = 0
+    #TODO Walk + Train + Walk
 
-    # Train + Uber
-    #TODO: To be coded
+    #TODO Uber + Train + Uber
 
-    # output
-    # return as JSON
+    #TODO Walk + Train + Uber
+
+    #TODO Uber + Train + Walk
+
+    #TODO: Return JSON
 
 
 #TODO: Sub Functions
 # Functions To Be Coded: 
     # Train Wait Time
     # Train Cost
-
-#TODO: Other
-    # Remove other API calls
-    # Code main method in computation.py
     

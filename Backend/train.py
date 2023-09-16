@@ -1,3 +1,6 @@
+#TODO: Train Wait Time
+#TODO: Train Cost
+
 from station import stations
 
 class Train:
