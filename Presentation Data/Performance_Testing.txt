@@ -104,3 +104,31 @@ Test 10000/10000 | Average Time: 0.0198 seconds
 
 Tests completed!
 Final Average Time: 0.0198 seconds
+
+
+## AVERAGE TRAVEL TIME 0,0 TO 99,99 
+Travel time at 0:00 is 17.159842137831138 minutes.
+Travel time at 1:00 is 16.550896930592685 minutes.
+Travel time at 2:00 is 20.069394614037815 minutes.
+Travel time at 3:00 is 26.83076085068613 minutes.
+Travel time at 4:00 is 33.821204390581194 minutes.
+Travel time at 5:00 is 39.449379050643614 minutes.
+Travel time at 6:00 is 43.328545707256 minutes.
+Travel time at 7:00 is 42.94458515527629 minutes.
+Travel time at 8:00 is 39.827486854203826 minutes.
+Travel time at 9:00 is 33.99953191899552 minutes.
+Travel time at 10:00 is 27.27280851884076 minutes.
+Travel time at 11:00 is 21.262182846234296 minutes.
+Travel time at 12:00 is 16.32568022855465 minutes.
+Travel time at 13:00 is 17.365769477317688 minutes.
+Travel time at 14:00 is 20.733756515232823 minutes.
+Travel time at 15:00 is 26.360576398982513 minutes.
+Travel time at 16:00 is 33.76759400876727 minutes.
+Travel time at 17:00 is 40.27116338147433 minutes.
+Travel time at 18:00 is 43.9807487391084 minutes.
+Travel time at 19:00 is 44.01705189632453 minutes.
+Travel time at 20:00 is 40.207371633461136 minutes.
+Travel time at 21:00 is 34.32052247584161 minutes.
+Travel time at 22:00 is 27.582479105522644 minutes.
+Travel time at 23:00 is 20.075539611423643 minutes.
+Average travel time is 30.313536351966274 minutes.

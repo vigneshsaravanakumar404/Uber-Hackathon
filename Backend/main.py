@@ -9,14 +9,10 @@ import datetime
 import heapq
 from multiprocessing import Process, Pipe
 
-
-
-# Static Data
+# Background Methods
 BASE_TRAFFIC_VARIATION = 0.25
 SEARCH_RADIUS = 10
 
-
-# Methods
 def gaussian(x, mu, sigma):
     """Gaussian function to model the base traffic coefficient."""
     g = math.exp(-((x - mu)**2) / (2 * sigma**2))
@@ -151,85 +147,46 @@ def create_bounded_city_graph(start, end, city_size=100):
                 graph[(i, j)] = neighbors
     return graph
 
+
+
+# Main Methods
+def generate_route(start, end, hour):
+    """
+    Generate a route from start to end.
+    """
+    graph = create_bounded_city_graph(start, end)
+    route = dijkstra(graph, start, end, hour)
+    return route
+
+def compute_travel_time(route, hour):
+    """
+    Compute the travel time for a given route based on the traffic data at a specific hour.
+    
+    Parameters:
+    - route: List of tuples representing the path from start to end.
+    - hour: The hour at which the travel is happening.
+    
+    Returns:
+    - travel_time: The total time taken to travel the route at the given hour.
+    """
+    travel_time = 0
+    for i in range(len(route) - 1):
+        start = route[i]
+        end = route[i + 1]
+        
+        # Assuming the distance between each grid point is 1 unit.
+        # The time taken to travel between two points is the distance (1 unit) multiplied by the traffic coefficient.
+        # A higher traffic coefficient means slower travel.
+        travel_time += 35.9973447 * traffic_coefficient(start[0], start[1], hour)
+        
+    return travel_time/60.0
+
+
 # Initialization
 traffic_data = []
-for hour in range(24):
-    traffic_data.append(generate_traffic_data(hour))
+for time in range(24):
+    traffic_data.append(generate_traffic_data(time))
 
-import random
-import time
-
-##########################################################
-
-def display_progress_bar(iteration, total, bar_length=50):
-    """
-    Display a progress bar in the console.
-    """
-    progress = (iteration / total)
-    arrow = '=' * int(round(progress * bar_length) - 1) + '>'
-    spaces = ' ' * (bar_length - len(arrow))
-    
-    print(f"\rProgress: [{arrow + spaces}] {int(progress * 100)}%", end='')
-
-
-
-# Number of tests
-NUM_TESTS = 10000
-
-# List to store the time taken for each test
-times_taken = []
-output = ""
-
-# Fancy console output
-print("Starting tests...\n")
-output += "Starting tests...\n"
-print("========================================")
-output += "========================================\n"
-
-for i in range(NUM_TESTS):
-    # Randomly select hour (including decimals)
-    hour = random.uniform(0, 23)
-    
-    # Randomly select starting and ending points on the grid
-    start_point = (random.randint(0, 99), random.randint(0, 99))
-    end_point = (random.randint(0, 99), random.randint(0, 99))
-    
-    # Start the timer
-    start_time = time.time()
-    
-    # Run the provided code
-    graph = create_bounded_city_graph(start_point, end_point)
-    route = dijkstra(graph, start_point, end_point, hour)
-    
-    # End the timer
-    end_time = time.time()
-    
-    # Calculate time taken for this test
-    time_taken = end_time - start_time
-    times_taken.append(time_taken)
-    
-    # Display the average time taken every 100 tests
-    display_progress_bar(i + 1, NUM_TESTS)
-    if (i + 1) % 100 == 0:
-        avg_time = sum(times_taken) / len(times_taken)
-        print(f" Test {i + 1}/{NUM_TESTS} | Average Time: {avg_time:.4f} seconds")
-        output += f"Test {i + 1}/{NUM_TESTS} | Average Time: {avg_time:.4f} seconds\n"
-    
-print("========================================")
-output += "========================================\n"
-print("\nTests completed!")
-output += "\nTests completed!\n"
-
-# Display the final average
-final_avg_time = sum(times_taken) / len(times_taken)
-print(f"Final Average Time: {final_avg_time:.4f} seconds")
-output += f"Final Average Time: {final_avg_time:.4f} seconds\n"
-
-# Write to Presentation Data folder
-with open("Presentation Data/Performance_Testing.txt", "w") as f:
-    f.write(output)
-
-###################################################################
 
 # # Visualization No. 2
 # x_coords, y_coords = zip(*route)
@@ -252,7 +209,6 @@ with open("Presentation Data/Performance_Testing.txt", "w") as f:
 # plt.ylabel("Y Coordinate")
 # plt.savefig('Presentation Data/Traffic_Heatmap.png', dpi=300, bbox_inches='tight')
 # #plt.show()
-
 # for hour in range(24):
 #     traffic_data = generate_traffic_data(hour)
 #     plt.imshow(traffic_data, cmap='RdYlGn', origin="lower")
@@ -262,6 +218,3 @@ with open("Presentation Data/Performance_Testing.txt", "w") as f:
 #     plt.ylabel("Y Coordinate")
 #     plt.savefig(f'Presentation Data/Traffic_Heatmap_{hour}h.png', dpi=300, bbox_inches='tight')
 #     plt.close()
-
-
-#TODO: Make the function actually work for peak hours and not work around it
