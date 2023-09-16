@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from traffic import generate_route, compute_travel_time, generate_traffic_data
-from walk import compute_walk_time
+from walk import compute_walk_time, compute_walk_route
 
 app = Flask(__name__)
 
@@ -121,3 +121,50 @@ def compute_walk_time_api():
     walk_time = compute_walk_time(start, end)
     
     return jsonify({"walk_time": walk_time})
+
+@app.route('/compute_walk_route', methods=['GET'])
+def compute_walk_route_api():
+    """
+    API endpoint to compute the walk route from start to end based on the Manhattan distance.
+    
+    Inputs:
+    - start: A tuple representing the starting point in the format (x, y). Extracted from the request parameter 'start'.
+    - end: A tuple representing the ending point in the format (x, y). Extracted from the request parameter 'end'.
+    
+    Outputs:
+    - walk_route: A list of tuples representing the route from start to end.
+    
+    Example URL:
+    http://localhost:5000/compute_walk_route?start=[0,0]&end=[99,99]
+    """
+    # Extract start and end points from the request parameters
+    start = tuple(map(int, request.args.get('start').strip('[]').split(',')))
+    end = tuple(map(int, request.args.get('end').strip('[]').split(',')))
+    
+    # Compute the walk route
+    walk_route = compute_walk_route(start, end)
+    
+    return jsonify({"walk_route": walk_route})
+
+
+
+#TODO: 
+# 1. Return 5 Travel Options
+    # 1.1. Travel Time
+        # 1.1.1. Train
+        # 1.1.2. Uber
+        # 1.1.3. Walk
+    # 1.2. Travel Cost
+        # 1.2.1. Train
+        # 1.2.2. Uber
+        # 1.2.3. Walk
+        # 1.2.4. Tax
+    # 1.3. Eco-Friendliness
+        # 1.3.1. Train
+        # 1.3.2. Uber
+        # 1.3.3. Walk
+    # 1.4. Train Route + Walk Route + Uber Route
+        # 1.4.1. Train Route
+        # 1.4.2. Walk Route
+        # 1.4.3. Uber Route
+    # 1.5. Time to Uber Arrival
