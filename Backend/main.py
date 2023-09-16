@@ -53,16 +53,6 @@ def traffic_coefficient(x, y, hour, city_size=100):
     
     return final_coeff
 
-def generate_traffic_data(hour, city_size=100):
-    """
-    Generate a 2D array of traffic coefficients for the city.
-    """
-    traffic_data = np.zeros((city_size, city_size))
-    for i in range(city_size):
-        for j in range(city_size):
-            traffic_data[i, j] = traffic_coefficient(i, j, hour)
-    return traffic_data
-
 def get_traffic_coefficient(x, y, hour):
 
     return traffic_data[round(hour)][x][y]
@@ -148,7 +138,6 @@ def create_bounded_city_graph(start, end, city_size=100):
     return graph
 
 
-
 # Main Methods
 def generate_route(start, end, hour):
     """
@@ -180,6 +169,16 @@ def compute_travel_time(route, hour):
         travel_time += 35.9973447 * traffic_coefficient(start[0], start[1], hour)
         
     return travel_time/60.0
+
+def generate_traffic_data(hour, city_size=100):
+    """
+    Generate a 2D array of traffic coefficients for the city.
+    """
+    traffic_data = np.zeros((city_size, city_size))
+    for i in range(city_size):
+        for j in range(city_size):
+            traffic_data[i, j] = traffic_coefficient(i, j, hour)
+    return traffic_data
 
 
 # Initialization
