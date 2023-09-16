@@ -1,11 +1,12 @@
-from server import app
 from flask import Flask, jsonify, request
-from station import Station
-import math
-import random
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
+from station import Station
+from server import app
+import numpy as np
+import random
+import math
+
+
 
 
 # Static Data
