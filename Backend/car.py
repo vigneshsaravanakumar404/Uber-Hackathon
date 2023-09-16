@@ -191,8 +191,6 @@ def create_bounded_city_graph(start, end, city_size=100):
                 graph[(i, j)] = neighbors
     return graph
 
-
-# Main Methods
 def generate_route(start, end, hour):
     """
     Generate a route from the starting point to the ending point based on the traffic conditions at a specific hour.
@@ -267,6 +265,14 @@ def car_cost(start, end, hour):
     route = len(generate_route(start, end, hour))
     travel_time = compute_travel_time(route, hour)
     return travel_time * 1.22 + 3.95
+ 
+def time_to_uber():
+    return np.random.normal(7, 2) 
+
+def environment_tax(start, end, hour):
+    return len(generate_route(start, end, hour)) * 0.1 * 0.05
+    
+
 
 # Initialization
 traffic_data = []

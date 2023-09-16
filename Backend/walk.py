@@ -53,4 +53,28 @@ def compute_walk_route(start, end):
             walk_route.append((start[0], start[1] - i))
     
     return walk_route
+
+def walk_cost(start, end):
+    """
+    Compute the walk cost from start to end based on the Manhattan distance.
+    
+    Parameters:
+    - start: Tuple representing the starting point.
+    - end: Tuple representing the ending point.
+    
+    Returns:
+    - walk_cost: The cost of walking from start to end.
+    """
+    # Calculate the Manhattan distance
+    distance = abs(start[0] - end[0]) + abs(start[1] - end[1])
+    
+    # Assuming each grid point is 100 meters apart
+    distance_meters = distance * 100
+    walk_time = distance_meters / 1.39
+    walk_cost = walk_time * 0
+    
+    return walk_cost
+
+
+
 print(compute_walk_route((0, 0), (99, 99)))
