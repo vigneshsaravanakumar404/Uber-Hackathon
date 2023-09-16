@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from traffic import generate_route, compute_travel_time, generate_traffic_data
+from car import generate_route, compute_travel_time, generate_traffic_data
 from walk import compute_walk_time, compute_walk_route
 
 app = Flask(__name__)
@@ -151,18 +151,18 @@ def compute_walk_route_api():
 #TODO: 
 # 1. Return 5 Travel Options
     # 1.1. Travel Time
-        # 1.1.1. Train
-        # 1.1.2. Uber
-        # 1.1.3. Walk
+        # 1.1.1. Train 
+        # 1.1.2. Uber #####
+        # 1.1.3. Walk #####
     # 1.2. Travel Cost
         # 1.2.1. Train
-        # 1.2.2. Uber
+        # 1.2.2. Uber #####
         # 1.2.3. Walk
-        # 1.2.4. Tax
+        # 1.2.4. Environmental Tax
     # 1.3. Eco-Friendliness
         # 1.3.1. Train
         # 1.3.2. Uber
-        # 1.3.3. Walk
+        # 1.3.3. Walk 
     # 1.4. Train Route + Walk Route + Uber Route
         # 1.4.1. Train Route
         # 1.4.2. Walk Route

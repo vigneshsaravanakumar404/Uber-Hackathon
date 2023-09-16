@@ -252,11 +252,26 @@ def generate_traffic_data(hour, city_size=100):
 def return_traffic_data():
     return traffic_data
 
+def car_cost(start, end, hour):
+    """
+    Compute the cost of taking a car from start to end at a specific hour.
+    
+    Parameters:
+    - start: Tuple representing the starting point (x, y).
+    - end: Tuple representing the ending point (x, y).
+    - hour: The hour at which the travel is happening.
+    
+    Returns:
+    - cost: The total cost of taking a car from start to end at the given hour.
+    """
+    route = len(generate_route(start, end, hour))
+    travel_time = compute_travel_time(route, hour)
+    return travel_time * 1.22 + 3.95
+
 # Initialization
 traffic_data = []
 for time in range(24):
     traffic_data.append(generate_traffic_data(time))
-
 
 
 # Test Code
