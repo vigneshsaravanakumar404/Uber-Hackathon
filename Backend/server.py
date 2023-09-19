@@ -20,6 +20,9 @@ def find_nearest_station(start, stations):
     nearest_station = min(stations, key=lambda station: euclidean_distance(start, (station.x, station.y)))
     return nearest_station
 
+def coords_to_str(route):
+    return ', '.join([f"({x},{y})" for x, y in route])
+
 def generate_train_wait_time():
     mean = 5.75
     std_dev = 1.75
@@ -89,7 +92,6 @@ def main_api():
     walk_time = compute_walk_time(start, end)
     walk_route = compute_walk_route(start, end)
     walk_cost = 0
-    walk_wait_time = 0
     walk_env_tax = 0
 
     # Uber
@@ -117,6 +119,8 @@ def main_api():
     total_time_2 = walk_time_start_2 + train_time_2 + train_wait_time_2 + walk_time_end_2
     total_cost_2 = walk_cost + train_cost_2 + train_env_tax_2 + walk_env_tax
     total_env_tax_2 = train_env_tax_2 + walk_env_tax
+    walk_route_start_2 = compute_walk_route(start, (nearest_station_start.x, nearest_station_start.y))
+    walk_route_end_2 = compute_walk_route((nearest_station_end.x, nearest_station_end.y), end)
     
 
     # Walk + Train + Uber
@@ -129,6 +133,7 @@ def main_api():
     total_time_4 = walk_time_start_4 + train_time_2 + train_wait_time_2 + uber_time_end_4 + uber_wait_time_end_4
     total_cost_4 = walk_cost + train_cost_2 + train_env_tax_2 + uber_cost_end_4 + uber_env_tax_end_4
     total_env_tax_4 = train_env_tax_2 + uber_env_tax_end_4
+    walk_route_start_4 = compute_walk_route(start, (nearest_station_start.x, nearest_station_start.y))
 
     # Uber + Train + Walk
     uber_route_start_5 = generate_route(start, (nearest_station_start.x, nearest_station_start.y), hour)
@@ -140,6 +145,7 @@ def main_api():
     total_time_5 = uber_time_start_5 + uber_wait_time_start_5 + train_time_2 + train_wait_time_2 + walk_time_end_5
     total_cost_5 = uber_cost_start_5 + uber_env_tax_start_5 + train_cost_2 + train_env_tax_2 + walk_cost
     total_env_tax_5 = uber_env_tax_start_5 + train_env_tax_2
+    walk_route_end_5 = compute_walk_route((nearest_station_end.x, nearest_station_end.y), end)
 
     # Uber + Train + Uber
     uber_route_start_3 = generate_route(start, (nearest_station_start.x, nearest_station_start.y), hour)
@@ -167,10 +173,12 @@ def main_api():
 
     # Return JSON
     return jsonify({
-        'Walk': {'time': walk_time, 'cost': walk_cost, 'env_tax': walk_env_tax},
-        'Uber': {'time': total_time_1, 'cost': total_cost_1, 'env_tax': total_env_tax_1},
-        'Walk_Train_Walk': {'time': total_time_2, 'cost': total_cost_2, 'env_tax': total_env_tax_2},
-        'Uber_Train_Uber': {'time': total_time_3, 'cost': total_cost_3, 'env_tax': total_env_tax_3},
-        'Walk_Train_Uber': {'time': total_time_4, 'cost': total_cost_4, 'env_tax': total_env_tax_4},
-        'Uber_Train_Walk': {'time': total_time_5, 'cost': total_cost_5, 'env_tax': total_env_tax_5}
+        'Walk': {'time': walk_time, 'cost': walk_cost, 'env_tax': walk_env_tax, 'route': coords_to_str(walk_route)},
+        'Uber': {'time': total_time_1, 'cost': total_cost_1, 'env_tax': total_env_tax_1, 'route': coords_to_str(uber_route_1)},
+        'Walk_Train_Walk': {'time': total_time_2, 'cost': total_cost_2, 'env_tax': total_env_tax_2, 'route': f"{coords_to_str(walk_route_start_2)}|{coords_to_str(train_route_2)}|{coords_to_str(walk_route_end_2)}"},
+        'Uber_Train_Uber': {'time': total_time_3, 'cost': total_cost_3, 'env_tax': total_env_tax_3, 'route': f"{coords_to_str(uber_route_start_3)}|{coords_to_str(train_route_3)}|{coords_to_str(uber_route_end_3)}"},
+        'Walk_Train_Uber': {'time': total_time_4, 'cost': total_cost_4, 'env_tax': total_env_tax_4, 'route': f"{coords_to_str(walk_route_start_4)}|{coords_to_str(train_route_2)}|{coords_to_str(uber_route_end_4)}"},
+        'Uber_Train_Walk': {'time': total_time_5, 'cost': total_cost_5, 'env_tax': total_env_tax_5, 'route': f"{coords_to_str(uber_route_start_5)}|{coords_to_str(train_route_2)}|{coords_to_str(walk_route_end_5)}"}
     })
+
+

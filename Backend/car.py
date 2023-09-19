@@ -278,7 +278,6 @@ def environment_tax(start, end, hour):
     return len(generate_route(start, end, hour)) * 0.1 * 0.05
     
 
-
 # Initialization
 traffic_data = []
 for time in range(24):
