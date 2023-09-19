@@ -106,7 +106,10 @@ def dijkstra(graph, start, end, hour):
             path = []
             while u:
                 path.append(u)
-                u = prev[u]
+                try:
+                    u = prev[u]
+                except KeyError:
+                    break
             return path[::-1]
         
         for v, weight in graph[u].items():
@@ -155,6 +158,8 @@ def is_within_distance_of_line(point, start, end, distance=30):
     
     numerator = abs((y2 - y1) * x - (x2 - x1) * y + x2 * y1 - y2 * x1)
     denominator = math.sqrt((y2 - y1)**2 + (x2 - x1)**2)
+    if denominator == 0:
+        return False
     distance_from_line = numerator / denominator
     
     return distance_from_line <= distance
@@ -263,8 +268,8 @@ def car_cost(start, end, hour):
     - cost: The total cost of taking a car from start to end at the given hour.
     """
     route = len(generate_route(start, end, hour))
-    travel_time = compute_travel_time(route, hour)
-    return travel_time * 1.22 + 3.95
+    travel_time = compute_travel_time(generate_route(start, end, hour), hour)
+    return 3 * (travel_time * 1.22 + 3.95)
  
 def time_to_uber():
     return np.random.normal(7, 2) 

@@ -7,7 +7,7 @@ class Station:
         self.x = x
         self.y = y
         self.id = "X" + str(x) + "Y" + str(y)
-        self.speed = 27.7778
+        self.speed = 111.76
 
     def get_id(self):
         return self.id
@@ -26,57 +26,38 @@ class Station:
         return (dx, dy)
 
     def train_travel_time(self, other_station):
-        """Compute the travel time to another station.
-
-        Parameters:
-        - other_station: The other Station object.
-
-        Returns:
-        - time: The travel time in minutes to the other station.
-        """
-        
-        x,y = self.distance_to(other_station) 
-        if (x==0) or (y==0):
-            distance = abs(x) + abs(y)
-            time = ((distance * 100 / self.speed) + ((distance/10 - 1)))/60
-            return time
-        else:
-            return -1
+        x, y = self.distance_to(other_station)
+        distance_x = abs(x)
+        distance_y = abs(y)
+        time_x = (distance_x * 100 / self.speed) + ((distance_x / 10 - 1)) if distance_x != 0 else 0
+        time_y = (distance_y * 100 / self.speed) + ((distance_y / 10 - 1)) if distance_y != 0 else 0
+        total_time = (time_x + time_y) / 60
+        return total_time
 
     def train_route(self, other_station):
-        """Compute the route to another station.
-
-        Parameters:
-        - other_station: The other Station object.
-
-        Returns:
-        - route: A list of tuples representing the route from this station to the other station.
-        """
         route = []
-        x,y = self.distance_to(other_station)
-        if (x==0) or (y==0):
-            distance = abs(x) + abs(y)
-            for i in range(0, distance + 1):
-                if x < 0:
-                    route.append((self.x + i, self.y))
-                elif x > 0:
-                    route.append((self.x - i, self.y))
-                elif y < 0:
-                    route.append((self.x, self.y + i))
-                elif y > 0:
-                    route.append((self.x, self.y - i))
-            return route
-        else:
-            return -1
+        x, y = self.distance_to(other_station)
+        distance_x = abs(x)
+        distance_y = abs(y)
+
+        # Route along x-axis
+        for i in range(0, distance_x + 1):
+            if x < 0:
+                route.append((self.x + i, self.y))
+            elif x > 0:
+                route.append((self.x - i, self.y))
+
+        # Route along y-axis
+        for i in range(0, distance_y + 1):
+            if y < 0:
+                route.append((self.x, self.y + i))
+            elif y > 0:
+                route.append((self.x, self.y - i))
+
+        return route
 
 
 stations = []
 for i in range(10, 100, 10):  
     for j in range(10, 100, 10):  
         stations.append(Station(i, j))
-
-
-start_station = stations[0]
-end_station = stations[5]
-
-print(f"Travel time from station {start_station.x},{start_station.y} to station {end_station.x},{end_station.y}: {start_station.train_travel_time(end_station)} minutes")
