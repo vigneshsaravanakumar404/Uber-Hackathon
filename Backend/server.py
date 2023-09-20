@@ -7,35 +7,29 @@ import random
 
 app = Flask(__name__)
 
-# Background Computation
-stations = []
-for i in range(10, 100, 10):  
-    for j in range(10, 100, 10):  
-        stations.append(Station(i, j))
+# Initialize stations using list comprehension for efficiency
+stations = [Station(i, j) for i in range(10, 100, 10) for j in range(10, 100, 10)]
 
 def euclidean_distance(point1, point2):
+    """Calculate the Euclidean distance between two points."""
     return sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 
 def find_nearest_station(start, stations):
-    nearest_station = min(stations, key=lambda station: euclidean_distance(start, (station.x, station.y)))
-    return nearest_station
+    """Find the nearest station to a given point."""
+    return min(stations, key=lambda station: euclidean_distance(start, (station.x, station.y)))
 
 def coords_to_str(route):
+    """Convert a list of coordinates to a string."""
     return ', '.join([f"({x},{y})" for x, y in route])
 
 def generate_train_wait_time():
+    """Generate a random train wait time based on a Gaussian distribution."""
     mean = 5.75
     std_dev = 1.75
     min_wait = 0
     max_wait = mean * 2
-
     wait_time = random.gauss(mean, std_dev)
-
-    # Clip the wait time to be within the min and max limits
-    wait_time = max(min_wait, min(max_wait, wait_time))
-
-    return wait_time
-
+    return max(min_wait, min(max_wait, wait_time))
 
 @app.route('/generate_route', methods=['GET'])
 def generate_route_api():
@@ -57,34 +51,31 @@ def generate_route_api():
     start = tuple(map(int, request.args.get('start').strip('[]').split(',')))
     end = tuple(map(int, request.args.get('end').strip('[]').split(',')))
     route = generate_route(start, end, hour)
-    return jsonify({"route": route})
+    return jsonify({"route": coords_to_str(route)})
 
 @app.route('/main', methods=['GET'])
 def main_api():
     """
-    API endpoint to list the 4 travel options from start to end based on traffic data at a specific hour
+    API endpoint to list the 4 travel options from start to end based on traffic data at a specific hour.
     
     Inputs:
-    - start: A tuple representing the starting point in the format (x, y)
-    - end: A tuple representing the ending point in the format (x, y)
-    - time: A tuple representing the time of the day in the format (hour, minute)
+    - start: A tuple representing the starting point in the format (x, y).
+    - end: A tuple representing the ending point in the format (x, y).
+    - time: A tuple representing the time of the day in the format (hour, minute).
     
     Outputs:
-    - route: List of tuples representing the path from start to end.
+    - JSON object containing time, cost, environmental tax, and route for each travel option.
     
     Example URL:
     http://localhost:5000/main?start=[0,0]&end=[99,99]&time=[12,30]
     """
-    
-    # Input
+    # Parse input
     start = tuple(map(int, request.args.get('start').strip('[]').split(',')))
     end = tuple(map(int, request.args.get('end').strip('[]').split(',')))
     time = tuple(map(int, request.args.get('time').strip('[]').split(',')))
-    
-    # Variables
     hour = round(time[0] + time[1]/60)
 
-    # Computations
+    # Compute nearest stations
     nearest_station_start = find_nearest_station(start, stations)
     nearest_station_end = find_nearest_station(end, stations)
 
@@ -106,7 +97,7 @@ def main_api():
     total_env_tax_1 = uber_env_tax_1
 
 
-    #TODO Walk + Train + Walk
+    # Walk + Train + Walk
     walk_time_start_2 = compute_walk_time(start, (nearest_station_start.x, nearest_station_start.y))
     walk_time_end_2 = compute_walk_time((nearest_station_end.x, nearest_station_end.y), end)
     train_time_2 = nearest_station_start.train_travel_time(nearest_station_end)
