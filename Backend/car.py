@@ -324,3 +324,5 @@ for a in range(24):
     print(f"Travel time at {a}:00 is {travel_time} minutes.")
 
 print(f"Average travel time is {sum/24} minutes.")"""
+
+
