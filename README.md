@@ -1,25 +1,47 @@
 # Project Name
 
 This is our submission of Uber Hackathon 2023.
+
 ## Table of Contents
+1. [Screenshots](#screenshots)
+2. [Tryout API Calls](#tryout-api-calls)
+3. [Demo](#demo)
+4. [Explanation](#explanation)
+5. [Features](#features)
+6. [How to Use](#how-to-use)
+7. [API Reference](#api-reference)
+    - [Get All Items](#get-all-items)
+    - [Get Item](#get-item)
+    - [Add Function](#add-function)
+8. [Error Handling](#error-handling)
+9. [Tech Stack](#tech-stack)
+    - [Client](#client)
+    - [Server](#server)
+10. [Future Scope](#future-scope)
+11. [Authors](#authors)
+
+
 ## Screenshots
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
+## Tryout API Calls
 
-## Tryout out API calls
 Click on the links to see what our API calls look like. Some of these API calls are integrated into our front end. Some of them are API only calls that can be utilized by clients.
+
 ## Demo
 
 Insert gif or link to demo
 
-
 ## Explanation
+
 ## Features
-## How to use
+
+## How to Use
+
 ## API Reference
 
-#### Get all items
+### Get All Items
 
 ```http
   GET /api/items
@@ -29,37 +51,41 @@ Insert gif or link to demo
 | :-------- | :------- | :------------------------- |
 | `api_key` | `string` | **Required**. Your API key |
 
-#### Get item
+### Get Item
 
 ```http
   GET /api/items/${id}
 ```
 
 | Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
+|:----------|:---------|:----------------------------------|
 | `id`      | `string` | **Required**. Id of item to fetch |
+
+### Add Function
 
 #### add(num1, num2)
 
 Takes two numbers and returns the sum.
 
-
 ## Error Handling
-## Tech Stack
-
-**Clie/nt:** React, Redux, TailwindCSS
-
-**Server:** Node, Express
 
 ## Tech Stack
-<div>
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/59059d9d1a2c092696dc66e00931cc1181a4ce1f/icons/Python-Dark.svg" width="64" height="64" alt="Python">
-    <img src="https://images.igdb.com/igdb/image/upload/t_cover_big_2x/ugtrhiksvdkmjekcbesf.jpg" width="64" height="64" alt="Stockfish">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/59059d9d1a2c092696dc66e00931cc1181a4ce1f/icons/Flask-Dark.svg" width="64" height="64" alt="Flask">
-    <img src="https://raw.githubusercontent.com/vigneshsaravanakumar404/skill-icons/main/icons/Idea-Dark.svg" width="64" height="64" alt="IntelliJ IDEA">
-</div>
+
+### Client
+
+**Client:** React, Redux, TailwindCSS
+
+### Server
+
+
 ## Future Scope
+In the future the api could be updated so each car's location 
+
 ## Authors
 
-- [@octokatherine](https://www.github.com/octokatherine)
-
+<table>
+  <tr>
+    <td align="center" width="50%"><a href="https://github.com/vigneshsaravanakumar404"><img src="https://github.com/vigneshsaravanakumar404.png?size=100" width="100px;" alt=""/><br /><sub><b>Vignesh Saravanakumar</b></sub></a><br /><a href="https://github.com/vigneshsaravanakumar404"><img src="https://img.shields.io/badge/GitHub-vigneshsaravanakumar404-blue?style=flat-square&logo=github" /></a></td>
+    <td align="center" width="50%"><a href="https://github.com/TejasRaghuram"><img src="https://github.com/TejasRaghuram.png?size=100" width="100px;" alt=""/><br /><sub><b>Tejas Raghuram</b></sub></a><br /><a href="https://github.com/TejasRaghuram"><img src="https://img.shields.io/badge/GitHub-TejasRaghuram-blue?style=flat-square&logo=github" /></a></td>
+  </tr>
+</table>
