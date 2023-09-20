@@ -180,5 +180,3 @@ def main_api():
         'Walk_Train_Uber': {'time': total_time_4, 'cost': total_cost_4, 'env_tax': total_env_tax_4, 'route': f"{coords_to_str(walk_route_start_4)}|{coords_to_str(train_route_2)}|{coords_to_str(uber_route_end_4)}"},
         'Uber_Train_Walk': {'time': total_time_5, 'cost': total_cost_5, 'env_tax': total_env_tax_5, 'route': f"{coords_to_str(uber_route_start_5)}|{coords_to_str(train_route_2)}|{coords_to_str(walk_route_end_5)}"}
     })
-
-

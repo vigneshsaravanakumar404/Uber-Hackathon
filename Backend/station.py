@@ -1,19 +1,22 @@
-#TODO: Train Wait Time
-#TODO: Train Cost
-
 class Station:
-
+    """
+    Represents a train station with coordinates (x, y) and methods to calculate travel time and route to another station.
+    """
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.id = "X" + str(x) + "Y" + str(y)
-        self.speed = 111.76
+        self.id = f"X{x}Y{y}"
+        self.speed = 111.76  # Speed in meters per minute
 
     def get_id(self):
+        """
+        Returns the unique ID of the station.
+        """
         return self.id
 
     def distance_to(self, other_station):
-        """Compute the distance to another station.
+        """
+        Compute the distance to another station.
 
         Parameters:
         - other_station: The other Station object.
@@ -21,43 +24,45 @@ class Station:
         Returns:
         - (dx, dy): A tuple where dx is the distance along the x-axis and dy is the distance along the y-axis.
         """
-        dx = other_station.x - self.x
-        dy = other_station.y - self.y
-        return (dx, dy)
+        return other_station.x - self.x, other_station.y - self.y
 
     def train_travel_time(self, other_station):
-        x, y = self.distance_to(other_station)
-        distance_x = abs(x)
-        distance_y = abs(y)
-        time_x = (distance_x * 100 / self.speed) + ((distance_x / 10 - 1)) if distance_x != 0 else 0
-        time_y = (distance_y * 100 / self.speed) + ((distance_y / 10 - 1)) if distance_y != 0 else 0
-        total_time = (time_x + time_y) / 60
-        return total_time
+        """
+        Calculate the time required to travel to another station.
+
+        Parameters:
+        - other_station: The other Station object.
+
+        Returns:
+        - total_time: The total time required to travel to the other station in minutes.
+        """
+        dx, dy = self.distance_to(other_station)
+        time_x = (abs(dx) * 100 / self.speed) + (abs(dx) // 10 - 1) if dx != 0 else 0
+        time_y = (abs(dy) * 100 / self.speed) + (abs(dy) // 10 - 1) if dy != 0 else 0
+        return (time_x + time_y) / 60
 
     def train_route(self, other_station):
+        """
+        Generate the route to another station.
+
+        Parameters:
+        - other_station: The other Station object.
+
+        Returns:
+        - route: A list of tuples representing the coordinates along the route.
+        """
         route = []
-        x, y = self.distance_to(other_station)
-        distance_x = abs(x)
-        distance_y = abs(y)
+        dx, dy = self.distance_to(other_station)
 
-        # Route along x-axis
-        for i in range(0, distance_x + 1):
-            if x < 0:
-                route.append((self.x + i, self.y))
-            elif x > 0:
-                route.append((self.x - i, self.y))
+        # Horizontal segment
+        for x in range(self.x, other_station.x + 1) if dx >= 0 else range(self.x, other_station.x - 1, -1):
+            route.append((x, self.y))
 
-        # Route along y-axis
-        for i in range(0, distance_y + 1):
-            if y < 0:
-                route.append((self.x, self.y + i))
-            elif y > 0:
-                route.append((self.x, self.y - i))
+        # Vertical segment
+        for y in range(self.y, other_station.y + 1) if dy >= 0 else range(self.y, other_station.y - 1, -1):
+            route.append((other_station.x, y))
 
         return route
 
-
-stations = []
-for i in range(10, 100, 10):  
-    for j in range(10, 100, 10):  
-        stations.append(Station(i, j))
+# Initialize stations
+stations = [Station(i, j) for i in range(10, 100, 10) for j in range(10, 100, 10)]

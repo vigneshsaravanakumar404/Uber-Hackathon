@@ -1,10 +1,14 @@
-#TODO: Train Wait Time
-#TODO: Train Cost
-
-from station import stations
-
 class Train:
-
+    """
+    Represents a train object with attributes for direction, speed, and position.
+    
+    Attributes:
+    - direction: A string representing the direction of the train ("F" for forward, "B" for backward).
+    - speed: An integer representing the speed of the train in km/h.
+    - vertical: An integer representing the vertical position of the train, or None if not applicable.
+    - horizontal: An integer representing the horizontal position of the train, or None if not applicable.
+    """
+    
     def __init__(self, direction, speed, vertical=None, horizontal=None):
         self.direction = direction
         self.speed = speed
@@ -15,48 +19,41 @@ class Train:
         return f"Train(direction={self.direction}, speed={self.speed}, vertical={self.vertical}, horizontal={self.horizontal})"
 
     def time_to_station(self, station, time_passed, direction):
-        distance = 0
-        if self.vertical:
-            distance = abs(self.vertical - station[0])
-        elif self.horizontal:
-            distance = abs(self.horizontal - station[1])
-
-        # Convert speed from km/h to km/min
+        """
+        Calculate the time for the train to reach a given station.
+        
+        Parameters:
+        - station: A tuple representing the station coordinates (x, y).
+        - time_passed: Time passed since the train started its journey.
+        - direction: Direction of the train ("N", "S", "E", "W").
+        
+        Returns:
+        - remaining_time: Time remaining for the train to reach the station.
+        """
+        
+        distance = abs(self.vertical - station[0]) if self.vertical else abs(self.horizontal - station[1])
+        
+        # Convert speed from km/h to km/min and calculate travel time
         speed_per_minute = self.speed / 60
-
-        # Calculate the time taken to travel the distance
         travel_time = distance / speed_per_minute
 
-        # Add the stop time for each station
+        # Calculate stops and total time including stops
         stops = distance // 10
-        total_time = travel_time + (stops * 1)  # 1 minute stop at each station
+        total_time = travel_time + stops  # 1 minute stop at each station
 
-        # Check if the train has to turn around
-        if direction in ["N", "W"]:
-            if self.direction == "B":
-                total_time += (100 / speed_per_minute) + (9 * 1)  # Time to reach the end and turn around
-        elif direction in ["S", "E"]:
-            if self.direction == "F":
-                total_time += (100 / speed_per_minute) + (9 * 1)
+        # Check for turn-around time
+        if direction in ["N", "W"] and self.direction == "B":
+            total_time += (100 / speed_per_minute) + 9
+        elif direction in ["S", "E"] and self.direction == "F":
+            total_time += (100 / speed_per_minute) + 9
 
-        # Subtract the time passed to get the remaining time
+        # Calculate remaining time
         remaining_time = total_time - time_passed
 
         return remaining_time
 
 
-
-
-# Variables
-trains = []
+# Initialize trains with a constant speed
 SPEED = 10
-
-# Create trains for vertical lines
-for i in range(10, 100, 10):
-    trains.append(Train("F", SPEED, vertical=i))
-    trains.append(Train("B", SPEED, vertical=i))
-
-# Create trains for horizontal lines
-for j in range(10, 100, 10):
-    trains.append(Train("F", SPEED, horizontal=j))
-    trains.append(Train("B", SPEED, horizontal=j))
+trains = [Train(dir, SPEED, vertical=i) for i in range(10, 100, 10) for dir in ["F", "B"]] + \
+         [Train(dir, SPEED, horizontal=j) for j in range(10, 100, 10) for dir in ["F", "B"]]
