@@ -1,44 +1,88 @@
-# Project Name
+# Aryan
 
 This is our submission of Uber Hackathon 2023.
 
 ## Table of Contents
 1. [Screenshots](#screenshots)
-2. [Tryout API Calls](#tryout-api-calls)
-3. [Demo](#demo)
-4. [Explanation](#explanation)
-5. [Features & How to Use](#features)
-6. [API Reference](#api-reference)
-    - [Get Travel Routes](#get-all-items)
-    - [Real Time Location](#get-item)
-    - [](#add-function)
-7. [Error Handling](#error-handling)
-8. [Tech Stack](#tech-stack)
-    - [Client](#client)
-    - [Server](#server)
-9. [Future Scope](#future-scope)
-10. [Authors](#authors)
+2. [Tryout API Calls](#Examples)
+3. [Explanation](#explanation)
+4. [Features & How to Use](#features)
+5. [API Reference](#api-reference)
+6. [Tech Stack](#tech-stack)
+7. [Future Scope](#future-scope)
+8. [Authors](#authors)
 
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![img.png](img.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 
-## Tryout API Calls
-
-Click on the links to see what our API calls look like. Some of these API calls are integrated into our front end. Some of them are API only calls that can be utilized by clients.
-
-## Demo
-
-Insert gif or link to demo
+## Examples
+To view example JSON outputs from the program click this [link](https://github.com/vigneshsaravanakumar404/Uber-Hackathon/tree/main/Presentation%20Data/JSON)
+To view example heatmap outputs from the program click this [link](https://github.com/vigneshsaravanakumar404/Uber-Hackathon/tree/main/Presentation%20Data)
 
 ## Explanation
 
+### Introduction and Goal
+Aryan is an innovative application designed to enhance the existing capabilities of Uber. The primary objective of this project is to integrate public transportation options, promote environmental sustainability, improve accessibility, and optimize traffic flow. By doing so, Aryan aims to offer a more comprehensive, efficient, and user-friendly experience.
+
+### Public Transportation: The Problem and The Idea
+UberLand, the hypothetical city for this project, boasts an efficient public transportation system. However, the existing Uber application does not fully utilize this resource. Aryan addresses this gap by integrating train routes into the ride options. When a user inputs their starting point and destination, Aryan offers a variety of routes, including those that incorporate train rides or short walks. This feature not only provides quicker and cheaper options but also leverages the city's existing infrastructure for a more efficient experience.
+
+### Traffic Congestion: The Problem and The Idea
+Traffic congestion is a significant issue in UberLand, simulated through a 100x100 grid with stochastic models to mimic real-world traffic conditions. Aryan proposes two solutions to mitigate this problem. First, it offers users a list of five travel modes, each optimized for speed or environmental impact. Second, it employs Dijkstra's algorithm, modified with heuristics and priority queues, to find the most efficient routes. These routes are then displayed on the user interface, allowing users to make informed choices.
+
+### Environmental Impact: The Problem and The Idea
+While ridesharing services like Uber reduce the number of cars on the road, they could do more to minimize environmental impact. Aryan introduces "EcoTax," a fee added to routes with higher carbon emissions. This fee is then donated to environmental charities, incentivizing users to opt for greener routes.
+
+### Accessibility: The Problem and The Idea
+Accessibility is a crucial aspect of any public service. Aryan ensures that all individuals, regardless of their physical abilities, can use the service effortlessly. Users are prompted to specify if they need assistance, such as help with boarding the vehicle or handling baggage, making the service more inclusive.
+
+### Development Tools
+The application is built using Unity for the front end and Python/Flask for the back end. NGROK is used for tunneling to host local servers on the web, making the API accessible.
+
+### The Future
+Aryan aims to integrate real-time car location data and employ graph-based traffic modeling for more dynamic and efficient route suggestions. This will pave the way for a centralized traffic management system, reducing congestion and environmental impact.
+
 ## Features
 
-## How to Use
+### Route Integration
+- Multiple route options including standard Uber rides, train rides, and walking.
+- Real-time fastest route API for dynamic route suggestions.
+
+### Traffic Optimization
+- Utilizes Dijkstra's algorithm with heuristics and priority queues.
+- Offers five modes of travel, each optimized for speed or environmental impact.
+
+### Environmental Sustainability
+- Introduction of "EcoTax" for routes with higher carbon emissions.
+- Fee collected from EcoTax is donated to environmental charities.
+
+### Accessibility
+- Users can specify if they need assistance, such as help with boarding or handling baggage.
+- Inclusive design to accommodate all individuals.
+
+### User Interface
+- Built using Unity, the UI includes text fields for location input and buttons for route preview and selection.
+- Displays essential information like route cost and travel time.
+
+### Back End
+- Built using Python and Flask.
+- Utilizes NGROK for tunneling to host local servers on the web.
+
+### Future Enhancements
+- Integration of real-time car location data.
+- Centralized traffic management system using machine learning algorithms.
+
+---
+
+I hope this detailed explanation and feature list meet your requirements. If you have any more questions or need further elaborations, feel free to ask.
+
 
 ## API Reference
+Here is a guide on how to use the API. 
 
 ### Generate Realtime Optimal Route
 
@@ -61,10 +105,6 @@ http://localhost:5000/generate_route?hour=12&start=[0,0]&end=[99,99]
 - `route`: List of tuples representing the path from start to end.
 - `error`: Error message in case of invalid inputs.
 
-#### Error Handling
-Returns an error message in JSON format if any of the inputs are invalid.
-
----
 
 ### List Travel Options
 
@@ -99,9 +139,6 @@ The `/main` API endpoint includes the following error handling mechanisms:
 ```json
 {"error": "An unexpected error occurred: [Error Details]"}
 ```
-
-
-## Error Handling
 
 
 ## Tech Stack
