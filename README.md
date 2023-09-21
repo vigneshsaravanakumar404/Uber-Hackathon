@@ -72,14 +72,7 @@ Aryan aims to integrate real-time car location data and employ graph-based traff
 - Built using Python and Flask.
 - Utilizes NGROK for tunneling to host local servers on the web.
 
-### Future Enhancements
-- Integration of real-time car location data.
-- Centralized traffic management system using machine learning algorithms.
-
 ---
-
-I hope this detailed explanation and feature list meet your requirements. If you have any more questions or need further elaborations, feel free to ask.
-
 
 ## API Reference
 Here is a guide on how to use the API. 
