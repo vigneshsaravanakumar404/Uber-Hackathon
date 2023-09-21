@@ -20,7 +20,7 @@ This is our submission of Uber Hackathon 2023.
 ![img_2.png](img_2.png)
 
 ## Examples
-To view example JSON outputs from the program click this [link](https://github.com/vigneshsaravanakumar404/Uber-Hackathon/tree/main/Presentation%20Data/JSON)
+To view example JSON outputs from the program click this [link](https://github.com/vigneshsaravanakumar404/Uber-Hackathon/blob/main/Presentation%20Data/JSON/data_0_27_to_37_29.json)
 To view example heatmap outputs from the program click this [link](https://github.com/vigneshsaravanakumar404/Uber-Hackathon/tree/main/Presentation%20Data)
 
 ## Explanation
