@@ -253,6 +253,9 @@ def generate_traffic_data(hour, city_size=100):
     return traffic_data
 
 def return_traffic_data():
+    """
+    Returns the traffic data for the car.
+    """
     return traffic_data
 
 def car_cost(start, end, hour):
@@ -272,9 +275,24 @@ def car_cost(start, end, hour):
     return 3 * (travel_time * 1.22 + 3.95)
  
 def time_to_uber():
-    return np.random.normal(7, 2) 
+    """
+    Returns a random number representing the time it takes for an Uber to arrive.
+    The number is generated from a normal distribution with a mean of 7 minutes and a standard deviation of 2 minutes.
+    """
+    return np.random.normal(7, 2)
 
 def environment_tax(start, end, hour):
+    """
+    Calculates the environment tax for a given route based on the distance and time of day.
+
+    Args:
+        start (str): The starting location of the route.
+        end (str): The ending location of the route.
+        hour (int): The hour of the day (0-23) when the route is being taken.
+
+    Returns:
+        float: The calculated environment tax for the given route.
+    """
     return len(generate_route(start, end, hour)) * 0.1 * 0.05
     
 

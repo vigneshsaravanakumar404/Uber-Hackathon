@@ -15,8 +15,32 @@ class Train:
         self.vertical = vertical
         self.horizontal = horizontal
 
-    def __repr__(self):
-        return f"Train(direction={self.direction}, speed={self.speed}, vertical={self.vertical}, horizontal={self.horizontal})"
+    class Train:
+        class Train:
+            """
+            A class representing a train object.
+
+            Attributes:
+            - direction (str): The direction the train is moving in.
+            - speed (float): The speed of the train in km/h.
+            - vertical (float): The vertical position of the train in meters.
+            - horizontal (float): The horizontal position of the train in meters.
+            """
+
+            def __init__(self, direction, speed, vertical, horizontal):
+                self.direction = direction
+                self.speed = speed
+                self.vertical = vertical
+                self.horizontal = horizontal
+
+        def __repr__(self):
+            """
+            Returns a string representation of the Train object.
+
+            Returns:
+                str: A string representation of the Train object.
+            """
+            return f"Train(direction={self.direction}, speed={self.speed}, vertical={self.vertical}, horizontal={self.horizontal})"
 
     def time_to_station(self, station, time_passed, direction):
         """

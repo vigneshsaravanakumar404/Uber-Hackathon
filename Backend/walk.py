@@ -1,5 +1,6 @@
 WALK_SPEED = 1.34112  # meters per second
 
+
 def compute_walk_time(start, end):
     """
     Compute the walk time from start to end based on the Manhattan distance and average walking speed.
@@ -18,14 +19,14 @@ def compute_walk_time(start, end):
 
 def compute_walk_route(start, end):
     """
-    Compute the walk route from start to end based on the Manhattan distance.
-    
-    Parameters:
-    - start: Tuple representing the starting point (x, y).
-    - end: Tuple representing the ending point (x, y).
-    
+    Computes a walk route between two points on a 2D grid.
+
+    Args:
+        start (tuple): The starting point as a tuple of (x, y) coordinates.
+        end (tuple): The ending point as a tuple of (x, y) coordinates.
+
     Returns:
-    - walk_route: A list of tuples representing the route from start to end.
+        list: A list of (x, y) coordinates representing the walk route.
     """
     walk_route = []
     x1, y1 = start
